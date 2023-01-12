@@ -1,6 +1,6 @@
 # AWS ECS Fargate - Spring Boot App
 
-<a ref="Architecture.png" target="_blank"> </a>
+<img src="Architecture.png">
 
 
 

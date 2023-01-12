@@ -1,6 +1,8 @@
 # AWS ECS Fargate - Spring Boot App
 
-![API Infastructure]<img src="Architecture.png"> 
+<a ref="Architecture.png" target="_blank"> </a>
+
+
 
 
 Let's take a look at what we're going to build here. To start with, we're going to first implement our VPC infrastructure that can be see with the outer frame.  That will include networking for private subnets, public subnets, route tables, network access control lists and actual routes for networking, Internet Gateway, Nat'l Gateway and everything. 
@@ -16,6 +18,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 - AWS account with programatic access
 - [AWS CLI](https://aws.amazon.com/cli/) must be installed
 - Domain name in Route 53  
+
 
 ## STEP 1
 
@@ -40,6 +43,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 `terraform plan -var-file="production.tfvars"`
 `terraform apply -var-file="production.tfvars"`      
 
+
 ## STEP 2
 
 ### Elastic Container Services (ECS) Platform Infrastructure 
@@ -60,6 +64,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 `terraform plan -var-file="production.tfvars"`
 `terraform apply -var-file="production.tfvars"` 
 
+
 ## STEP 3
 
 ### ECS Fargate Application Deployment
@@ -71,6 +76,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 - Create ALB Listener Rule for ECS Service
 - Create CloudWatch Log group for ECS Service
 - Provide Tfvars
+
 
 ## STEP 4
 
@@ -90,6 +96,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 
 ### Deploy App to ECS Fargate
 `sh deploy.sh deploy`
+
 
 ## IMPORTANT
 

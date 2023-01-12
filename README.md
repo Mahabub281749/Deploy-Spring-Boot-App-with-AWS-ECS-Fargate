@@ -1,5 +1,8 @@
 # AWS ECS Fargate - Spring Boot App
 
+![API Infastructure]<img src="Architecture.png"> 
+
+
 Let's take a look at what we're going to build here. To start with, we're going to first implement our VPC infrastructure that can be see with the outer frame.  That will include networking for private subnets, public subnets, route tables, network access control lists and actual routes for networking, Internet Gateway, Nat'l Gateway and everything. 
 
 Once we have our subnets, we'll be able to implement our ECS cluster. And to do that, we're going to first create a repository, which is a elastic container registry for ECS. After that, we're going to start building our application and then going to implement the deployment script for our application using TerraForm. On top of those, we will deploy our load balancer for our application to balance itself with the container workloads.
@@ -16,7 +19,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 
 ## STEP 1
 
-## Virtual Private Cloud (VPC) Network Infrastructure 
+### Virtual Private Cloud (VPC) Network Infrastructure 
 - Create S3 Bucket for Terraform Remote State
 - Create Project
 - Define remote state configuration
@@ -30,7 +33,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 - Create NAT Gateway and add to route table
 - Create Internet Gateway (IGW) and add to route table
 - Output variables for remote state reading
-![API Infastructure](https://www.aaronwht.com/images/fargate/fargate-nginx.png)  
+
 
 ### Execute terraform
 `terraform init -backend-config="infrastructure-prod.config"`  
@@ -39,7 +42,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 
 ## STEP 2
 
-## Elastic Container Services (ECS) Platform Infrastructure 
+### Elastic Container Services (ECS) Platform Infrastructure 
 - Register a domain on Route53 for ECS platform
 - Define Backend and Read Remote State for Layer 1 infrastructure
 - Create ECS Cluster
@@ -59,7 +62,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 
 ## STEP 3
 
-## ECS Fargate Application Deployment
+### ECS Fargate Application Deployment
 - Define Backend and Read Remote State for Layer 2 infrastructure
 - Create ECS Task Definition
 - Create IAM Task and execute role and policy for ECS Tasks
@@ -71,7 +74,7 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 
 ## STEP 4
 
-## Script the pipeline and deploy Fargate Spring Boot Application
+### Script the pipeline and deploy Fargate Spring Boot Application
 - Create Dockerfile for App
 - Create shell script for deployment
 - Deployment stages for shell script
@@ -87,20 +90,6 @@ And finally, once we bind domain to our ECS application, we'll be able to reach 
 
 ### Deploy App to ECS Fargate
 `sh deploy.sh deploy`
-
-## Create an Image of this App and push to AWS ECR  
-Use your Account Number and Region and run the below snippet replacing instances of the variables:
-- YOUR_AWS_ACCCOUNT_NUMBER 
-- YOUR_AWS_REGION  
-```
-docker build -t aws-ecs-typescript-api .  
-
-docker tag aws-ecs-typescript-api:latest YOUR_AWS_ACCCOUNT_NUMBER.dkr.ecr.YOUR_AWS_REGION.amazonaws.com/aws-ecs-typescript-api:latest  
-
-aws ecr get-login-password --region YOUR_AWS_REGION | docker login --username AWS --password-stdin YOUR_AWS_ACCOUNT_NUMBER.dkr.ecr.YOUR_AWS_REGION.amazonaws.com  
-
-docker push YOUR_AWS_ACCOUNT_NUMBER.dkr.ecr.YOUR_AWS_REGION.amazonaws.com/aws-ecs-typescript-api:latest
-```  
 
 ## IMPORTANT
 
